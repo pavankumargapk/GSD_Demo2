@@ -1,0 +1,6 @@
+.THIS .cCalendar .editclass {
+    height: 600px;
+    width: 638px;
+}
+.THIS .hide-error-message > .slds-form-element > .slds-form-element__help { display: block;
+}

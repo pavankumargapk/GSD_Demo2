@@ -1,0 +1,43 @@
+<aura:component controller="CalenderClass" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <ltng:require styles="{!$Resource.Calender     + '/fullcalendar390/fullcalendar.css'}"
+                  scripts="{!join(',',
+                           $Resource.Calender  + '/fullcalendar390/lib/jquery.min.js',
+                           $Resource.Calender  + '/fullcalendar390/lib/moment.min.js',
+                           $Resource.Calender  + '/fullcalendar390/fullcalendar.js'
+                           )}"
+                  afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+    
+    <ltng:require styles="/resource/calender/fullcalendar390/fullcalendar.css"/>
+    
+    <aura:attribute name='Objectlist' type='Object[]'/>
+    <aura:attribute name="buttonstate" type="Boolean" default="false"/>
+    <aura:attribute name="edit" type="Boolean" default="false"/>
+    <aura:attribute name="create" type="Boolean" default="false"/>
+    <aura:attribute name="ShowCalendar" type="Boolean" default="true"/>
+    <aura:attribute name="createloader" type="Boolean" default="false"/>
+    
+    <aura:attribute name="Apprecordid" type="string" />
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="datetime" type="list" />
+    
+    
+    <aura:handler name="cmpEvent" event="c:RemindParentToOpen" action="{!c.OpenParent}"/>
+    <aura:if isTrue="{!v.edit}">
+        
+        
+        <c:CalendarChild apprecordid="{!v.Apprecordid}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.create}">
+        
+        
+        <c:CalendarChildAppointment conrecordid="{!v.recordId}" loadchecker="{!v.createloader}" datetime="{!v.datetime}"/>
+    </aura:if>
+    <div id="calendar" class="slds-card" aura:id="calendar">
+        
+        
+    </div>
+    <div id="listcalendar" class="slds-card"/>
+    
+    
+</aura:component>

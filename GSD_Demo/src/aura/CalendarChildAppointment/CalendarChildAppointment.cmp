@@ -1,0 +1,51 @@
+<aura:component controller="CalenderClass" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="loadchecker" type="boolean"  />
+    <aura:attribute name="conrecordid" type="Id" />
+    <aura:attribute name="datetime" type="list" />
+    <aura:attribute name="datetimer" type="Date" />
+    <aura:attribute name="Enddatetimer" type="Date" />
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.loadchecker}" action="{!c.itemsChange}"/>
+    <div class="slds-show" aura:id="Recmodal"> 
+        
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open ">
+            <div class="slds-modal__container" style="width:150%;">
+                <!-- ###### MODAL BOX HEADER Start ######-->
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.Cancel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2>Create  Appointment</h2>
+                </header>
+                <!--###### MODAL BOX BODY Part Start######-->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" aura:id="recordedit">
+                    <lightning:recordEditForm aura:id="EditForm"
+                                              onsubmit="{!c.handleSubmit}"
+                                              onsuccess="{!c.handleSuccess}"
+                                              
+                                              objectApiName="Appointment__c">
+                        <!-- the messages component is for error messages -->
+                        <lightning:messages />
+                        
+                        <lightning:inputField fieldName="Subject__c" />
+                        <lightning:inputField  fieldName="Appointment_Description__c"  />
+                        <lightning:inputField fieldName="Confirmed__c" />
+                        <lightning:inputField fieldName="StartDate_Time__c" value="{!v.datetimer}" aura:id="start"/>
+                        
+                        <lightning:inputField fieldName="End_Date_Time__c"  value="{!v.Enddatetimer}" aura:id="end"/>
+                        <lightning:inputField fieldName="Contact__c" value="{!v.conrecordid}" />
+                        <div class="slds-m-top_medium">
+                            <lightning:button  variant="brand" type="submit" name="save" label="Save" /></div>
+                    </lightning:recordEditForm >
+                    
+                </div>
+                
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</aura:component>
